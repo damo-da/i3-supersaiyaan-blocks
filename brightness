@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+
+import os
+import sys
+
+BRIGHTNESS_VALUE = 100
+MIN_BRIGHTNESS = 50
+
+with open("/sys/class/backlight/intel_backlight/brightness") as f:
+    brightness = int(f.read())
+    changed = True
+    
+    if "up" in sys.argv:
+        brightness += BRIGHTNESS_VALUE
+    elif "down" in sys.argv:
+        brightness -= BRIGHTNESS_VALUE
+    else:
+        changed = False
+
+    if changed:
+        if brightness < MIN_BRIGHTNESS: brightness = MIN_BRIGHTNESS
+
+        f.close()
+        with open("/sys/class/backlight/intel_backlight/brightness","w") as g:
+            try:
+                g.write(str(brightness))
+            except Exception:
+                pass
+        print("BRIGHTNESS CHANGED")
+    print(brightness)
