@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
 import os
-
+from common import get_bars_as_text
 
 _SOUND_SYMBOL = "\uf028"
 
@@ -17,21 +17,7 @@ volume = int( (volume_line[0] + volume_line[1])/2.0)
 
 
 
-def get_text(volume):
-    num_sticks = 6
-    interval = int(100/num_sticks)
-
-    sticks = int( (volume+interval/2)/ interval)
-
-    return "|"*sticks + "."*(num_sticks-sticks)
-
-
-    while volume > 10:
-        ret[ret.index('.')] = '|'
-        volume -= 10
-    return ret
-
-text = get_text(volume)
+text = get_bars_as_text(volume)
 
 
 form = "<span font='FontAwesome'> {} {} </span>"
