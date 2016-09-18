@@ -62,11 +62,13 @@ else:
             return "#FFFF33"
         if percent < 80:
             return "#FFFF66"
+        if percent > 95:
+            return "#19FF19"
         return "#FFFFFF"
     
     def text(percentage):
         _BATTERY_LEVELS = ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"]
-        _BATTERY_FULL =   "\uf058"
+        _BATTERY_FULL =   "\uf240"
 
         if percentage < 10:
             return _BATTERY_LEVELS[0]
