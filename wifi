@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+import os 
+import sys
+from common import get_color
+
+_DEFAULT_DEV_NAME = "wlp4s0"
+
+dev_name = _DEFAULT_DEV_NAME if len(sys.argv) <= 1 else sys.argv[1]
+
+cmd = "grep %s /proc/net/wireless | awk '{ print int($3 * 100 / 70) }'"%(dev_name)
+
+result = os.popen(cmd).read().replace("\n","")
+
+try:
+    ratio = float(result)/100
+
+    print(" {} \uf1eb".format(result))
+    print(" {} \uf1eb".format(result))
+    print(get_color(ratio * 100))
+except:
+    # Wifi down
+    print("DOWN")
+    print("DOWN")
+    print("#ff0000")
+
+

@@ -6,6 +6,7 @@
 from subprocess import check_output
 from sys import exit
 import sys
+from common import get_color
 
 if len(sys.argv) > 1:
     bat = int(sys.argv[1])
@@ -44,28 +45,7 @@ else:
     else:
         fulltext = FA_LIGHTNING + " " + FA_PLUG + " "
 
-    def color(percent):
-        if percent < 10:
-            # exit code 33 will turn background red
-            return "#FFFFFF"
-        if percent < 20:
-            return "#FF3300"
-        if percent < 30:
-            return "#FF6600"
-        if percent < 40:
-            return "#FF9900"
-        if percent < 50:
-            return "#FFCC00"
-        if percent < 60:
-            return "#FFFF00"
-        if percent < 70:
-            return "#FFFF33"
-        if percent < 80:
-            return "#FFFF66"
-        if percent > 95:
-            return "#19FF19"
-        return "#FFFFFF"
-    
+   
     def text(percentage):
         _BATTERY_LEVELS = ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"]
         _BATTERY_FULL =   "\uf240"
@@ -84,7 +64,7 @@ else:
             return _BATTERY_LEVELS[4]
         return "<span font='FontAwesome'>{}</span> ".format(percentage)
     form = "<span color=\"{}\"> {} </span>"
-    fulltext += form.format(color(percentleft), text(percentleft))
+    fulltext += form.format(get_color(percentleft), text(percentleft))
 #    fulltext += timeleft
 
 print(fulltext)
