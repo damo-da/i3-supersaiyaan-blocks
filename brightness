@@ -18,6 +18,12 @@ with open("/sys/class/backlight/intel_backlight/brightness") as f:
         brightness += BRIGHTNESS_VALUE
     elif "down" in sys.argv:
         brightness -= BRIGHTNESS_VALUE
+    elif "reset" in sys.argv:
+        result = os.popen("sudo chmod 777 /sys/class/backlight/intel_backlight/brightness").read()
+        print(result)
+        print("Command executed")
+        import sys
+        sys.exit()
     else:
         changed = False
 
