@@ -28,15 +28,15 @@ addresses = netifaces.ifaddresses(hardware_name)
 
 internet_up = netifaces.AF_INET in addresses
 
-icon = "\uf108"
+icon = "y"
 
 if not internet_up:
-    print("{}".format(icon))
+    print("<span font='SexyFont'>{}</span>".format(icon))
     exit(33)
 
 addresses = [[ j['addr'] for j in addresses[i] if is_valid_ipv4_address(j['addr'])] for i in addresses]
 ip = next(a[0] for a in addresses if len(a) > 0)
 
-text = "<span color=\"lightgreen\">{} {}</span>".format(icon, ip)
+text = "<span color=\"lightgreen\"><span font='SexyFont'>{}</span> {}</span>".format(icon, ip)
 print(text)
 print(text)
