@@ -23,8 +23,10 @@ def get_bars_as_text(percentage, num_sticks=6):
     return ret
  
 
-def get_color(percent):
+def get_color(percent, skip_bg=False):
         if percent < 10:
+            if skip_bg: return "#FF1100"
+
             # exit code 33 will turn background red
             return "#FFFFFF"
         if percent < 20:
