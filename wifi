@@ -12,14 +12,23 @@ cmd = "grep %s /proc/net/wireless | awk '{ print int($3 * 100 / 70) }'"%(dev_nam
 
 result = os.popen(cmd).read().replace("\n","")
 
-icon = "\uf1eb"
-try:
-    ratio = float(result)/100
+icons = ['D','C','B','A','z']
 
-    print(" {} {}".format(result, icon))
-    print(" {} {}".format(result, icon))
-    print(get_color(ratio * 100))
+try:
+    ratio = int(result)
 except:
     # Wifi down
     print("{}".format(icon))
+    ratio = 0
+
+index = int( ratio / (101.0 / len(icons)))
+icon = icons[index]
+
+text = u"<span font='SexyFont'>{}</span>".format(icon)
+print(text)
+print(text)
+
+print(get_color(ratio))
+
+if ratio == 0:
     exit(33)
