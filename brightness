@@ -6,9 +6,11 @@ from common import get_bars_as_text
 
 BRIGHTNESS_VALUE = 100
 MIN_BRIGHTNESS = 50
-MAX_BRIGHTNESS = 800
+MAX_BRIGHTNESS = 820
 
 ICON = u"\uf185"
+
+ICONS = ['a','k','l','J','K','L','M']
 
 with open("/sys/class/backlight/intel_backlight/brightness") as f:
     brightness = int(f.read())
@@ -39,5 +41,8 @@ with open("/sys/class/backlight/intel_backlight/brightness") as f:
                 pass
 
     percentage = ( float(brightness) / MAX_BRIGHTNESS ) * 100
-    text = u"<span font='FontAwesome'> {} {}</span>".format(ICON, get_bars_as_text(percentage))
+    index = int(percentage / (101. / len(ICONS)))
+    icon = ICONS[index]
+
+    text = u"<span font='SexyFont'>{}</span>".format(icon)
     print(text)
