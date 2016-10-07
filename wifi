@@ -16,9 +16,9 @@ icons = ['D','C','B','A','z']
 
 try:
     ratio = int(result)
-except:
+except Exception:
     # Wifi down
-    print("{}".format(icon))
+    print("<span font='SexyFont'>{}</span>".format(icons[0]))
     ratio = 0
 
 index = int( ratio / (101.0 / len(icons)))
