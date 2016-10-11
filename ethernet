@@ -2,9 +2,6 @@
 
 import netifaces
 
-from common import is_valid_ipv4_address
-
-
 ifaces = netifaces.interfaces()
 hardware_name = next(iface for iface in ifaces if "e" in iface)
 
@@ -18,9 +15,7 @@ if not internet_up:
     print("<span font='SexyFont'>{}</span>".format(icon))
     exit(33)
 
-addresses = [[ j['addr'] for j in addresses[i] if is_valid_ipv4_address(j['addr'])] for i in addresses]
-ip = next(a[0] for a in addresses if len(a) > 0)
 
-text = "<span color=\"lightgreen\"><span font='SexyFont'>{}</span> {}</span>".format(icon, ip)
+text = "<span color=\"lightgreen\"><span font='SexyFont'>{}</span></span>".format(icon)
 print(text)
 print(text)
