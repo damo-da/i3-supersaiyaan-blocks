@@ -1,5 +1,7 @@
 # does not need a shebang line because it is not meant to be executable
 
+import socket
+
 def get_bars_as_text(percentage, num_sticks=6):
     '''Returns bars in form of text to display controls like volume and brightness.
 
@@ -48,6 +50,20 @@ def get_color(percent, skip_bg=False):
         return "#FFFFFF"
     
     
+def is_valid_ipv4_address(address):
+    try:
+        socket.inet_pton(socket.AF_INET, address)
+    except AttributeError:  # no inet_pton here, sorry
+        try:
+            socket.inet_aton(address)
+        except socket.error:
+            return False
+        return address.count('.') == 3
+    except socket.error:  # not a valid address
+        return False
+
+    return True
+
 
 if __name__ == "__main__":
     print(get_bars_as_text(10))
