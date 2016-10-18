@@ -17,7 +17,7 @@ status = check_output(['acpi'], universal_newlines=True)
 
 if not status:
     # stands for no battery found
-    fulltext = "<span color='red'><span font='FontAwesome'>\uf00d \uf240</span></span>"
+    fulltext = "<span color='red'>Battery not found</span>"
     percentleft = 100
 else:
     status = status.split("\n")[bat]
@@ -25,11 +25,7 @@ else:
     commasplitstatus = status.split(", ")
     percentleft = int(commasplitstatus[1].rstrip("%\n"))
 
-    # stands for charging
-    FA_LIGHTNING = "<span color='yellow'><span font='FontAwesome'>\uf0e7</span></span>"
-
-    # stands for plugged in
-    FA_PLUG = "<span font='FontAwesome'>\uf1e6</span>"
+    FA_PLUG = "<span font='SexyFont'>g</span>"
 
     fulltext = ""
     timeleft = ""
@@ -41,29 +37,33 @@ else:
     elif state == "Full":
         fulltext = FA_PLUG + " "
     elif state == "Unknown":
-        fulltext = "" # "<span font='FontAwesome'>\uf128</span> "
+        fulltext = "" 
     else:
-        fulltext = FA_LIGHTNING + " " + FA_PLUG + " "
+        fulltext = FA_PLUG + " "
 
    
     def text(percentage):
-        _BATTERY_LEVELS = ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"]
-        _BATTERY_FULL =   "\uf240"
-
-        if percentage < 10:
-            return _BATTERY_LEVELS[0]
+        _BATTERY_LEVELS = ["u", "t", "s", "r", "p"]
+        _BATTERY_FULL =   "p"
+        _BATTERY_EMPTY = 'q'
+        
+        icon = ""
+        if percentage <= 5:
+            icon = _BATTERY_EMPTY
+        elif percentage < 10:
+            icon = _BATTERY_LEVELS[0]
         elif percentage < 25:
-            return _BATTERY_LEVELS[1]
+            icon = _BATTERY_LEVELS[1]
         elif percentage < 50:
-            return _BATTERY_LEVELS[2]
+            icon = _BATTERY_LEVELS[2]
         elif percentage < 85:
-            return _BATTERY_LEVELS[3]
+            icon = _BATTERY_LEVELS[3]
         elif percentage > 98:
-            return _BATTERY_FULL    
+            icon = _BATTERY_FULL    
         else:
-            return _BATTERY_LEVELS[4]
-        return "<span font='FontAwesome'>{}</span> ".format(percentage)
-    form = "<span color=\"{}\"> {} </span>"
+            icon = _BATTERY_LEVELS[4]
+        return "<span font='SexyFont'>{}</span>".format(icon)
+    form = "<span color=\"{}\">{}</span>"
     fulltext += form.format(get_color(percentleft), text(percentleft))
 #    fulltext += timeleft
 
