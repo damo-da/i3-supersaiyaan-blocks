@@ -2,9 +2,12 @@
 
 import requests
 
-ip = requests.get("https://ipinfo.io/ip")
+try:
+    ip = requests.get("https://ipinfo.io/ip")
 
-ip = ip.text.replace("\n","")
-print(ip)
-print(ip)
-print("#bbddbb")
+    ip = ip.text.replace("\n","")
+    print(ip)
+    print(ip)
+    print("#bbddbb")
+except Exception:
+    pass
